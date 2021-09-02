@@ -10,6 +10,7 @@ import ListOffre from "./pages/listeOffre";
 import Footer from "./components/footer";
 import UpdateOffre from "./pages/updateAnnoce";
 import ListeCondidat from "./pages/listeCondidat";
+import CV from "./pages/cv";
 
 function App() {
   const { userId, token, login, logout, user } = UserAuth();
@@ -23,6 +24,7 @@ function App() {
         <Route path="/offre"  component={ListOffre} />
         <Route path="/update-offre/:id"  component={UpdateOffre} />
         <Route path="/liste-condidat/:id"  component={ListeCondidat} />
+        <Route path="/cv/:id"  component={CV} />
       </React.Fragment>
     );
   } else {

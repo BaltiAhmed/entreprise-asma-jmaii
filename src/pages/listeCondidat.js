@@ -113,7 +113,7 @@ export default function ListCondidat() {
                         </React.Fragment>
                       }
                     />
-                    <Link to={``}>
+                    <Link to={`/cv/${item._id}`}>
                       <FormatListBulletedIcon
                         style={{ color: "#42a5f5" }}
                         fontSize="large"
