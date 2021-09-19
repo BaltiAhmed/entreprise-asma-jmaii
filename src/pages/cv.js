@@ -94,21 +94,57 @@ export default function CV() {
   console.log(list);
   console.log(image);
 
+  const [date, setDate] = useState();
+
+  const onchange = (e) => {
+    setDate(e.target.value);
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    console.log(date);
+    try {
+      let response = await fetch(
+        `http://localhost:5000/api/condidat/convocation/${list._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            date: date,
+            entrepriseId: auth.userId,
+          }),
+        }
+      );
+      let responsedata = await response.json();
+      if (!response.ok) {
+        throw new Error(responsedata.message);
+      }
+    } catch (err) {
+      console.log(err);
+      seterror(err.message || "probleme!!");
+    }
+  };
+
   return (
     <div style={{ marginTop: "5%" }}>
       <Container>
         <Row>
           <Col>
-            <form className={classes.container} noValidate>
+            <form className={classes.container} onSubmit={submit}>
               <TextField
                 id="datetime-local"
                 label="Choisir une date"
                 type="datetime-local"
-                defaultValue="2017-05-24T10:30"
+                defaultValue="2021-05-24T10:30"
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
                 }}
+                name="date"
+                onChange={onchange}
+                required
               />
               <Button
                 style={{ marginBottom: "20px" }}

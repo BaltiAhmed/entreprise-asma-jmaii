@@ -5,7 +5,7 @@ const Actualite = () => {
     <div
       style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}
     >
-      <h1>Actualite</h1>
+      <h1>Actualité</h1>
       <div style={{ display: "inline-flex", width: "100%" }}>
         <Card bg="primary" style={{ width: "50%", height: "250px" }}>
           <Card.Header>Header</Card.Header>
