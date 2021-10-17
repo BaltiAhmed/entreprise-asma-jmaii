@@ -11,6 +11,7 @@ import Footer from "./components/footer";
 import UpdateOffre from "./pages/updateAnnoce";
 import ListeCondidat from "./pages/listeCondidat";
 import CV from "./pages/cv";
+import UpdateProfile from "./pages/update-profile";
 
 function App() {
   const { userId, token, login, logout, user } = UserAuth();
@@ -20,6 +21,7 @@ function App() {
     routes = (
       <React.Fragment>
         <Route path="/" exact component={Home} />
+        <Route path="/update-profile" exact component={UpdateProfile} />
         <Route path="/ajout"  component={AjoutOffre} />
         <Route path="/offre"  component={ListOffre} />
         <Route path="/update-offre/:id"  component={UpdateOffre} />

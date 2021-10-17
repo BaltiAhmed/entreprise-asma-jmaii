@@ -16,8 +16,7 @@ const NavBar = () => {
         <Navbar.Brand href="/">Navbar</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          
         </Nav>
 
         {!auth.token &&<Login />}

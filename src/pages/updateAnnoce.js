@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Authcontext } from "../context/auth-context";
 import ErrorModel from "../models/error-models";
@@ -21,6 +21,37 @@ const useStyles = makeStyles((theme) => ({
 
 const UpdateOffre = (props) => {
   const classes = useStyles();
+  const [list, setList] = useState();
+  const id = useParams().id
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/offre/${id}`
+        );
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        setList(responseData.offre);
+        setTitre(responseData.offre.titre)
+        setDdebut(responseData.offre.Ddebut)
+        setDfin(responseData.offre.Dfin)
+        setmission(responseData.offre.mission)
+        setAprincipale(responseData.offre.Aprincipale)
+        setdescription(responseData.offre.description)
+        
+      } catch (err) {
+        seterror(err.message);
+      }
+    };
+
+    sendRequest();
+  }, []);
+
+  console.log(list)
 
   const [titre, setTitre] = useState();
   const [Ddebut, setDdebut] = useState();
@@ -30,8 +61,11 @@ const UpdateOffre = (props) => {
   const [description, setdescription] = useState();
   const [error, seterror] = useState(null);
   const [success, setsuccess] = useState(null);
+  
 
-  const id = useParams().id
+  
+
+  
 
   const onchange = (e) => {
     if (e.target.name === "titre") {
@@ -93,6 +127,7 @@ const UpdateOffre = (props) => {
                 <Form.Label>Titre</Form.Label>
                 <Form.Control
                   placeholder="Titre"
+                  value= {titre}
                   name="titre"
                   onChange={onchange}
                   required
@@ -103,6 +138,7 @@ const UpdateOffre = (props) => {
                 <Form.Label>Mission</Form.Label>
                 <Form.Control
                   placeholder="Mission"
+                  value= {mission}
                   name="mission"
                   onChange={onchange}
                   required
@@ -115,7 +151,7 @@ const UpdateOffre = (props) => {
                     id="date"
                     label="Date début"
                     type="date"
-                    defaultValue="2017-05-24"
+                    defaultValue={Ddebut}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
@@ -131,7 +167,7 @@ const UpdateOffre = (props) => {
                     id="date"
                     label="Date de fin"
                     type="date"
-                    defaultValue="2017-05-24"
+                    defaultValue={Dfin}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
@@ -147,6 +183,7 @@ const UpdateOffre = (props) => {
                 <Form.Label>Activité principale</Form.Label>
                 <Form.Control
                   as="textarea"
+                  value = {Aprincipale}
                   rows={5}
                   name="Aprincipale"
                   onChange={onchange}
@@ -158,6 +195,7 @@ const UpdateOffre = (props) => {
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
+                  value = {description}
                   rows={5}
                   name="description"
                   onChange={onchange}
