@@ -25,6 +25,7 @@ const AjoutOffre = (props) => {
   const [Ddebut, setDdebut] = useState();
   const [Dfin, setDfin] = useState();
   const [mission, setmission] = useState();
+  const [categorie, setCategorie] = useState();
   const [Aprincipale, setAprincipale] = useState();
   const [description, setdescription] = useState();
   const [error, seterror] = useState(null);
@@ -41,6 +42,8 @@ const AjoutOffre = (props) => {
       setDfin(e.target.value);
     } else if (e.target.name === "mission") {
       setmission(e.target.value);
+    } else if (e.target.name === "categorie") {
+      setCategorie(e.target.value);
     } else if (e.target.name === "Aprincipale") {
       setAprincipale(e.target.value);
     } else if (e.target.name === "description") {
@@ -62,6 +65,8 @@ const AjoutOffre = (props) => {
           Ddebut: Ddebut,
           Dfin: Dfin,
           mission: mission,
+          categorie: categorie,
+          photo: auth.user.image,
           Aprincipale: Aprincipale,
           description: description,
           entrepriseId: auth.userId,
@@ -72,7 +77,7 @@ const AjoutOffre = (props) => {
         throw new Error(responsedata.message);
       }
       setsuccess("Offre ajouté.");
-      seterror(null)
+      seterror(null);
     } catch (err) {
       console.log(err);
       seterror(err.message || "probleme!!");
@@ -80,7 +85,7 @@ const AjoutOffre = (props) => {
   };
 
   return (
-    <div style={{marginTop:'5%'}}>
+    <div style={{ marginTop: "5%" }}>
       <Container>
         <Row>
           <Col></Col>
@@ -96,6 +101,23 @@ const AjoutOffre = (props) => {
                   onChange={onchange}
                   required
                 />
+              </Form.Group>
+
+              <Form.Group controlId="formGridAddress1">
+                <Form.Label>Catégrie</Form.Label>
+
+                <Form.Control
+                  name="categorie"
+                  onChange={onchange}
+                  required
+                  as="select"
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </Form.Control>
               </Form.Group>
 
               <Form.Group controlId="formGridAddress2">

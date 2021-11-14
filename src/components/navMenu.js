@@ -25,7 +25,7 @@ export default function SimpleMenu() {
     <div>
       <Avatar
         alt=""
-        src={`http://localhost:5000/${auth.user.image}`}
+        src={`http://localhost:5000/${auth.user.image && auth.user.image}`}
         onClick={handleClick}
       />
       <Menu

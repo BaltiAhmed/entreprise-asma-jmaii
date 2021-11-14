@@ -1,11 +1,11 @@
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Authcontext } from "../context/auth-context";
 import ErrorModel from "../models/error-models";
 import SuccessModel from "../models/success-models";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import {useParams} from 'react-router-dom'
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -22,13 +22,11 @@ const useStyles = makeStyles((theme) => ({
 const UpdateOffre = (props) => {
   const classes = useStyles();
   const [list, setList] = useState();
-  const id = useParams().id
+  const id = useParams().id;
   useEffect(() => {
     const sendRequest = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:5000/api/offre/${id}`
-        );
+        const response = await fetch(`http://localhost:5000/api/offre/${id}`);
 
         const responseData = await response.json();
         if (!response.ok) {
@@ -36,13 +34,12 @@ const UpdateOffre = (props) => {
         }
 
         setList(responseData.offre);
-        setTitre(responseData.offre.titre)
-        setDdebut(responseData.offre.Ddebut)
-        setDfin(responseData.offre.Dfin)
-        setmission(responseData.offre.mission)
-        setAprincipale(responseData.offre.Aprincipale)
-        setdescription(responseData.offre.description)
-        
+        setTitre(responseData.offre.titre);
+        setDdebut(responseData.offre.Ddebut);
+        setDfin(responseData.offre.Dfin);
+        setmission(responseData.offre.mission);
+        setAprincipale(responseData.offre.Aprincipale);
+        setdescription(responseData.offre.description);
       } catch (err) {
         seterror(err.message);
       }
@@ -51,21 +48,17 @@ const UpdateOffre = (props) => {
     sendRequest();
   }, []);
 
-  console.log(list)
+  console.log(list);
 
   const [titre, setTitre] = useState();
   const [Ddebut, setDdebut] = useState();
   const [Dfin, setDfin] = useState();
   const [mission, setmission] = useState();
+  const [categorie, setCategorie] = useState();
   const [Aprincipale, setAprincipale] = useState();
   const [description, setdescription] = useState();
   const [error, seterror] = useState(null);
   const [success, setsuccess] = useState(null);
-  
-
-  
-
-  
 
   const onchange = (e) => {
     if (e.target.name === "titre") {
@@ -76,6 +69,8 @@ const UpdateOffre = (props) => {
       setDfin(e.target.value);
     } else if (e.target.name === "mission") {
       setmission(e.target.value);
+    } else if (e.target.name === "categorie") {
+      setCategorie(e.target.value);
     } else if (e.target.name === "Aprincipale") {
       setAprincipale(e.target.value);
     } else if (e.target.name === "description") {
@@ -97,9 +92,9 @@ const UpdateOffre = (props) => {
           Ddebut: Ddebut,
           Dfin: Dfin,
           mission: mission,
+          categorie: categorie,
           Aprincipale: Aprincipale,
           description: description,
-          
         }),
       });
       let responsedata = await response.json();
@@ -107,7 +102,7 @@ const UpdateOffre = (props) => {
         throw new Error(responsedata.message);
       }
       setsuccess("Offre modifié.");
-      seterror(null)
+      seterror(null);
     } catch (err) {
       console.log(err);
       seterror(err.message || "probleme!!");
@@ -115,7 +110,7 @@ const UpdateOffre = (props) => {
   };
 
   return (
-    <div style={{marginTop:'5%'}}>
+    <div style={{ marginTop: "5%" }}>
       <Container>
         <Row>
           <Col></Col>
@@ -127,18 +122,35 @@ const UpdateOffre = (props) => {
                 <Form.Label>Titre</Form.Label>
                 <Form.Control
                   placeholder="Titre"
-                  value= {titre}
+                  value={titre}
                   name="titre"
                   onChange={onchange}
                   required
                 />
               </Form.Group>
 
+              <Form.Group controlId="formGridAddress1">
+                <Form.Label>Catégrie</Form.Label>
+
+                <Form.Control
+                  name="categorie"
+                  onChange={onchange}
+                  required
+                  as="select"
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </Form.Control>
+              </Form.Group>
+
               <Form.Group controlId="formGridAddress2">
                 <Form.Label>Mission</Form.Label>
                 <Form.Control
                   placeholder="Mission"
-                  value= {mission}
+                  value={mission}
                   name="mission"
                   onChange={onchange}
                   required
@@ -183,7 +195,7 @@ const UpdateOffre = (props) => {
                 <Form.Label>Activité principale</Form.Label>
                 <Form.Control
                   as="textarea"
-                  value = {Aprincipale}
+                  value={Aprincipale}
                   rows={5}
                   name="Aprincipale"
                   onChange={onchange}
@@ -195,7 +207,7 @@ const UpdateOffre = (props) => {
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
-                  value = {description}
+                  value={description}
                   rows={5}
                   name="description"
                   onChange={onchange}
